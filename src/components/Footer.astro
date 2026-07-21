@@ -1,0 +1,69 @@
+---
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<footer>
+  <div class="wrap inner">
+    <p class="availability">{t(locale, 'footer.availability')}</p>
+    <p class="links">
+      <a href="mailto:chedysleimi@gmail.com">chedysleimi@gmail.com</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.linkedin.com/in/chedy-sleimi" rel="me">LinkedIn</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://github.com/chedy-sleimi" rel="me">GitHub</a>
+      <span aria-hidden="true">·</span>
+      <a href="/cv-chedy-sleimi.pdf">{t(locale, 'nav.cv')}</a>
+    </p>
+    <p class="colophon">
+      © 2026 Chedy Sleimi · {t(locale, 'footer.built')}
+      <a class="nowrap" href="https://github.com/chedy-sleimi/portfolio"
+        >{t(locale, 'footer.source')}</a
+      >
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--rule-strong);
+    margin-top: var(--space-section);
+  }
+
+  .inner {
+    padding-block: 2.2rem 2.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Footer lines are short metadata, not prose — no measure cap, no orphans */
+  .inner p {
+    max-width: none;
+  }
+
+  .availability {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .links {
+    font-size: 0.95rem;
+  }
+
+  .links span {
+    color: var(--rule-strong);
+    margin-inline: 0.35rem;
+  }
+
+  .colophon {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+  }
+</style>

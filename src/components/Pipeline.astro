@@ -1,0 +1,73 @@
+---
+interface Step {
+  name: string;
+  detail: string;
+}
+
+interface Props {
+  label: string;
+  steps: Step[];
+}
+
+const { label, steps } = Astro.props;
+---
+
+{/* role="list" restores list semantics where VoiceOver strips them for list-style: none */}
+<ol class="pipeline" role="list" aria-label={label}>
+  {
+    steps.map((step) => (
+      <li>
+        <span class="name">{step.name}</span>
+        <span class="detail">{step.detail}</span>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  /* The Neotest flow rendered as a real ordered list: accessible,
+     themable, and honestly a sequence — the one place numbers belong. */
+  .pipeline {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+
+  li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.9rem;
+    padding: 0.85rem 1.1rem;
+  }
+
+  li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  li::before {
+    content: counter(step, decimal-leading-zero);
+    grid-row: 1 / 3;
+    align-self: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--primary);
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .detail {
+    grid-column: 2;
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: 55ch;
+  }
+</style>

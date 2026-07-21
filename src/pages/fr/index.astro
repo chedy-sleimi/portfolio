@@ -1,0 +1,245 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const neotest = getRelativeLocaleUrl('fr', 'neotest');
+
+const experience = [
+  {
+    role: 'Consultant QA',
+    org: 'Neoalians — Tunis',
+    dates: 'mars 2026 – aujourd’hui',
+    points: [
+      'Tests fonctionnels manuels et conception de cas de test sur le projet Zena.',
+      'Automatisation E2E et UI avec Playwright ; tests d’API avec Postman et Bruno.',
+      'Suivi des anomalies et workflow de test dans Jira, intégrés aux pipelines CI/CD.',
+    ],
+  },
+  {
+    role: 'Stagiaire développeur IA — Neotest',
+    org: 'Neoalians, département IA — Tunis',
+    dates: 'mars – juil. 2026',
+    points: [
+      'Développement de Neotest, une plateforme LLM qui automatise le cycle de vie QA de bout en bout — mon projet de fin d’études (PFE).',
+    ],
+    link: true,
+  },
+  {
+    role: 'Concepteur de rapports & support back-office international',
+    org: 'Siveco Groupe — Tunis',
+    dates: 'août 2023 – janv. 2026',
+    points: [
+      'Migration complète de Crystal Reports vers Jasper Reports, sans interruption de service.',
+      'Rapports BI interactifs complexes en SQL avancé ; tests fonctionnels sur la GMAO Coswin.',
+      'Support et formation de clients internationaux, en français et en anglais.',
+    ],
+  },
+  {
+    role: 'Développeur full-stack — projet de fin d’études',
+    org: 'Tunisie Télécom — Manouba',
+    dates: 'févr. – mai 2023',
+    points: [
+      'Tableau de bord analytique régional avec visualisations interactives — Django, MySQL, API REST.',
+    ],
+  },
+  {
+    role: 'Stagiaire développeur',
+    org: 'Établissements Abdelmoula — Denden',
+    dates: 'juil. – août 2022',
+    points: [
+      'Migration d’une application de bureau legacy vers le web avec ASP.NET Core MVC.',
+    ],
+  },
+];
+
+const skills = [
+  {
+    group: 'QA & tests',
+    items:
+      'Tests manuels & fonctionnels · conception de cas de test ISTQB (positifs, négatifs, cas limites et valeurs limites) · analyse des exigences · reporting de test',
+  },
+  {
+    group: 'Automatisation',
+    items:
+      'Playwright (E2E / UI, codegen) · tests d’API avec Postman & Bruno · génération de tests par IA · replay auto-réparant · pipelines CI/CD',
+  },
+  {
+    group: 'Outils',
+    items: 'Jira · Xray Cloud · Git & GitHub · Docker · Trello',
+  },
+  {
+    group: 'Code',
+    items:
+      'TypeScript / JavaScript · Python · Java · SQL & PL/SQL · Django & DRF · Spring Boot · Next.js / React · Angular',
+  },
+  {
+    group: 'Données & IA',
+    items:
+      'PostgreSQL · Oracle · MySQL · Redis · Jasper & Crystal Reports · intégration LLM & workflows agentiques (LiteLLM — Claude / OpenAI / Gemini)',
+  },
+];
+---
+
+<Base
+  title="Chedy Sleimi — Ingénieur QA"
+  description="Ingénieur QA qui construit les outils qui testent. Tests manuels, automatisation Playwright et API, et Neotest — une plateforme QA propulsée par LLM. Disponible à partir de septembre 2026, mobilité vers l'Espagne."
+  path=""
+>
+  <!-- Héros -->
+  <section class="wrap hero">
+    <h1>Ingénieur QA qui construit les&nbsp;outils qui&nbsp;testent.</h1>
+    <p class="lede">
+      Je suis Chedy Sleimi — consultant QA chez Neoalians à Tunis, ingénieur en
+      informatique diplômé en juin 2026. Mon quotidien : tests fonctionnels
+      manuels et automatisation Playwright et API sur le projet Zena. En tant que
+      stagiaire du département IA, j'ai développé <strong>Neotest</strong> : une plateforme
+      propulsée par LLM qui transforme un document d'exigences en cas de test
+      relus, exécutés et documentés.
+    </p>
+    <p class="cta-row">
+      <a class="btn" href={neotest}>Lire l'étude de cas Neotest</a>
+      <a class="btn-quiet" href="/cv-chedy-sleimi.pdf">Télécharger le CV (PDF)</a>
+    </p>
+  </section>
+
+  <!-- Aperçu Neotest -->
+  <section class="section" aria-labelledby="h-neotest">
+    <div class="wrap section-grid">
+      <h2 id="h-neotest">Étude de cas</h2>
+      <div class="flow">
+        <h3>Neotest — le cycle de vie QA, automatisé de bout en bout</h3>
+        <p>
+          Une plateforme multi-tenant qui ingère un document d'exigences (PDF ou
+          DOCX), rédige des cas de test de type ISTQB avec un LLM, attend une
+          validation humaine, puis exécute la suite dans un vrai navigateur — une
+          boucle agentique pilotant Playwright, avec réparation automatique des
+          sélecteurs et un mode replay déterministe. Les résultats sont diffusés en
+          direct via WebSockets et arrivent dans Jira via Xray Cloud.
+        </p>
+        <p><a href={neotest}>Le fonctionnement, en détail →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expérience -->
+  <section class="section" aria-labelledby="h-exp">
+    <div class="wrap section-grid">
+      <h2 id="h-exp">Expérience</h2>
+      <div class="jobs">
+        {
+          experience.map((job) => (
+            <article class="job">
+              <div class="job-head">
+                <h3>{job.role}</h3>
+                <p class="dates">{job.dates}</p>
+              </div>
+              <p class="org">{job.org}</p>
+              <ul>
+                {job.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+                {job.link && (
+                  <li>
+                    <a href={neotest}>Étude de cas complète →</a>
+                  </li>
+                )}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Projets -->
+  <section class="section" aria-labelledby="h-projects">
+    <div class="wrap section-grid">
+      <h2 id="h-projects">Autres projets</h2>
+      <div class="flow">
+        <p>
+          <strong>Pro-Connect</strong> (2024) — plateforme de collaboration B2B avec
+          mise en relation de talents et chatbot IA pour cadrer les besoins projet ;
+          authentification JWT avec gestion des rôles et permissions. Spring Boot ·
+          Angular · MySQL.
+        </p>
+        <p>
+          <strong>HamHama</strong> (2024) — réseau social de partage de recettes
+          avec génération de recettes par IA et calcul nutritionnel ; architecture
+          microservices avec API REST documentée. Spring Boot · Angular · MySQL.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compétences -->
+  <section class="section" aria-labelledby="h-skills">
+    <div class="wrap section-grid">
+      <h2 id="h-skills">Compétences</h2>
+      <dl class="skills">
+        {
+          skills.map((row) => (
+            <div class="skill-row">
+              <dt>{row.group}</dt>
+              <dd>{row.items}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Formation -->
+  <section class="section" aria-labelledby="h-edu">
+    <div class="wrap section-grid">
+      <h2 id="h-edu">Formation & langues</h2>
+      <div class="flow">
+        <p>
+          <strong>Diplôme d'ingénieur en informatique</strong> — École Polytechnique
+          Internationale, Tunis, 2023–2026. Formation en cours du soir, menée en
+          parallèle d'une activité professionnelle.
+        </p>
+        <p>
+          Licence en systèmes d'information d'entreprise — ESEN Tunis (2021–2023),
+          précédée d'une première licence à la Faculté des Sciences de Nabeul
+          (2019–2021).
+        </p>
+        <p>
+          <strong>Langues :</strong> français — B2 (DELF) · anglais — B2 (IELTS) ·
+          espagnol — A1, en progression.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" aria-labelledby="h-contact" id="contact">
+    <div class="wrap section-grid">
+      <h2 id="h-contact">Contact</h2>
+      <div class="flow">
+        <p>
+          Je cherche un poste de QA junior dans une équipe anglophone en
+          <strong>Espagne</strong> — ouvert aussi au Portugal et à la Pologne. Basé à
+          Tunis, disponible à partir de <strong>septembre 2026</strong>, mobile ; en
+          tant que citoyen tunisien, j'aurai besoin d'un sponsoring de visa — je
+          préfère l'annoncer d'emblée.
+        </p>
+        <p class="cta-row">
+          <a class="btn" href="mailto:chedysleimi@gmail.com">chedysleimi@gmail.com</a>
+          <a class="btn-quiet" href="https://www.linkedin.com/in/chedy-sleimi"
+            >LinkedIn →</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(4rem, 10vw, 7.5rem);
+  }
+
+  .hero h1 {
+    max-width: 20ch;
+  }
+</style>

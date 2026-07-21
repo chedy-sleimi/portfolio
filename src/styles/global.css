@@ -1,0 +1,304 @@
+/* ============================================================
+   Design tokens — "editorial precision"
+   Voice: a signed test certificate. Ruled, calm, exact.
+   Palette seed: terracotta oklch(0.59 0.188 35.8), hue 36°.
+   Light: pure white paper. Dark: pure near-black, chroma 0.
+   ============================================================ */
+
+:root {
+  --bg: oklch(1 0 0);
+  --ink: oklch(0.22 0.012 36);
+  --muted: oklch(0.45 0.015 36);
+  --primary: oklch(0.52 0.14 36);
+  --primary-hover: oklch(0.45 0.13 36);
+  --on-primary: oklch(1 0 0);
+  --rule: oklch(0.88 0.008 36);
+  --rule-strong: oklch(0.35 0.02 36);
+
+  --font-display: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-body: 'Public Sans', system-ui, 'Segoe UI', Arial, sans-serif;
+
+  --space-section: clamp(3.5rem, 8vw, 6rem);
+  /* 60ch of the "0" glyph ≈ 72–75 real proportional characters — the editorial band */
+  --measure: 60ch;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: oklch(0.13 0 0);
+    --ink: oklch(0.93 0.005 36);
+    --muted: oklch(0.72 0.01 36);
+    --primary: oklch(0.68 0.13 40);
+    --primary-hover: oklch(0.75 0.13 40);
+    --on-primary: oklch(0.13 0 0);
+    --rule: oklch(0.28 0.006 36);
+    --rule-strong: oklch(0.78 0.02 36);
+  }
+}
+
+/* ============ Reset ============ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============ Typography ============ */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 1.1rem + 4.4vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease-out;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+strong {
+  font-weight: 600;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* ============ Layout shell ============ */
+
+.wrap {
+  width: min(100% - 3rem, 72rem);
+  margin-inline: auto;
+}
+
+main {
+  flex: 1;
+}
+
+/* Ruled section: label rail left, content right — test-report grammar */
+.section {
+  border-top: 1px solid var(--rule);
+  padding-block: var(--space-section);
+}
+
+.section-grid {
+  display: grid;
+  gap: 1.5rem 3rem;
+}
+
+@media (min-width: 56rem) {
+  .section-grid {
+    grid-template-columns: 11rem 1fr;
+  }
+
+  .section-grid > h2 {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+  }
+}
+
+.flow > * + * {
+  margin-top: 1rem;
+}
+
+/* ============ Buttons / CTA ============ */
+
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65em 1.3em;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 120ms ease-out;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  color: var(--on-primary);
+}
+
+.btn-quiet {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65em 0;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ============ Shared page vocabulary ============ */
+/* Report-grammar classes used identically by both locales of both pages;
+   hoisted here so the locale copies cannot drift (ADR-0002). */
+
+.lede {
+  margin-top: 1.6rem;
+  font-size: 1.15rem;
+  max-width: 52ch;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.hero .cta-row {
+  margin-top: 1.8rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.job-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.2rem 1.5rem;
+}
+
+.dates {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.org {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0.15rem;
+}
+
+.job ul {
+  margin-top: 0.6rem;
+  padding-left: 1.1rem;
+}
+
+.job li {
+  max-width: var(--measure);
+}
+
+.job li + li {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 40rem) {
+  /* One consistent pattern on narrow screens: date always stacks under the title */
+  .job-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.skill-row dt {
+  font-weight: 600;
+}
+
+/* Skill values keep full ink: the keywords ARE the payload of the section.
+   The bold labels and spacing carry the grouping. */
+.skill-row dd {
+  margin: 0.15rem 0 0;
+  max-width: var(--measure);
+}
+
+/* ============ Reduced motion ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

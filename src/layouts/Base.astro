@@ -1,0 +1,81 @@
+---
+import '@fontsource/public-sans/400.css';
+import '@fontsource/public-sans/600.css';
+import '@fontsource/spectral/500.css';
+import '@fontsource/spectral/600.css';
+import '../styles/global.css';
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Locale-agnostic path of this page: '' for index, 'neotest', '404' */
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+const locale = (Astro.currentLocale ?? 'en') as Locale;
+const switchLocale: Locale = locale === 'fr' ? 'en' : 'fr';
+const enUrl = getAbsoluteLocaleUrl('en', path);
+const frUrl = getAbsoluteLocaleUrl('fr', path);
+const canonical = locale === 'fr' ? frUrl : enUrl;
+const switchUrl = getRelativeLocaleUrl(switchLocale, path);
+// The 404 is served for arbitrary URLs — canonical/alternate links would lie there.
+const is404 = path === '404';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {
+      !is404 && (
+        <>
+          <link rel="canonical" href={canonical} />
+          <link rel="alternate" hreflang="en" href={enUrl} />
+          <link rel="alternate" hreflang="fr" href={frUrl} />
+          <link rel="alternate" hreflang="x-default" href={enUrl} />
+          <meta property="og:url" content={canonical} />
+        </>
+      )
+    }
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t(locale, 'skip')}</a>
+    <Header locale={locale} switchUrl={switchUrl} switchLocale={switchLocale} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--bg);
+    padding: 0.5rem 1rem;
+    z-index: 10;
+  }
+
+  .skip-link:focus {
+    left: 0;
+  }
+</style>

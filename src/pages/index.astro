@@ -1,0 +1,240 @@
+---
+import Base from '../layouts/Base.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const neotest = getRelativeLocaleUrl('en', 'neotest');
+
+const experience = [
+  {
+    role: 'QA Consultant',
+    org: 'Neoalians — Tunis',
+    dates: 'Mar 2026 – present',
+    points: [
+      'Manual functional testing and test-case design on the Zena project.',
+      'End-to-end and UI automation with Playwright; API testing with Postman and Bruno.',
+      'Defect tracking and test workflow in Jira, wired into CI/CD pipelines.',
+    ],
+  },
+  {
+    role: 'AI Developer Intern — Neotest',
+    org: 'Neoalians, AI department — Tunis',
+    dates: 'Mar – Jul 2026',
+    points: [
+      'Built Neotest, an LLM-powered platform that automates the QA lifecycle end to end — my final-year engineering project.',
+    ],
+    link: true,
+  },
+  {
+    role: 'Report Designer & International Back-Office Support',
+    org: 'Siveco Groupe — Tunis',
+    dates: 'Aug 2023 – Jan 2026',
+    points: [
+      'Led the full migration from Crystal Reports to Jasper Reports without breaking operations.',
+      'Built complex interactive BI reports with advanced SQL; functional testing on the Coswin CMMS.',
+      'Supported and trained international clients in French and English.',
+    ],
+  },
+  {
+    role: 'Full-Stack Developer — final-year project',
+    org: 'Tunisie Télécom — Manouba',
+    dates: 'Feb – May 2023',
+    points: [
+      'Regional analytics dashboard with interactive visualizations — Django, MySQL, REST APIs.',
+    ],
+  },
+  {
+    role: 'Developer Intern',
+    org: 'Établissements Abdelmoula — Denden',
+    dates: 'Jul – Aug 2022',
+    points: ['Migrated a legacy desktop application to the web with ASP.NET Core MVC.'],
+  },
+];
+
+const skills = [
+  {
+    group: 'QA & testing',
+    items:
+      'Manual & functional testing · ISTQB test-case design (positive / negative / edge / boundary) · requirements analysis · test reporting',
+  },
+  {
+    group: 'Automation',
+    items:
+      'Playwright (E2E / UI, codegen) · API testing with Postman & Bruno · AI-driven test generation · self-healing replay · CI/CD pipelines',
+  },
+  {
+    group: 'Tools',
+    items: 'Jira · Xray Cloud · Git & GitHub · Docker · Trello',
+  },
+  {
+    group: 'Code',
+    items:
+      'TypeScript / JavaScript · Python · Java · SQL & PL/SQL · Django & DRF · Spring Boot · Next.js / React · Angular',
+  },
+  {
+    group: 'Data & AI',
+    items:
+      'PostgreSQL · Oracle · MySQL · Redis · Jasper & Crystal Reports · LLM integration & agentic workflows (LiteLLM — Claude / OpenAI / Gemini)',
+  },
+];
+---
+
+<Base
+  title="Chedy Sleimi — QA Engineer"
+  description="QA engineer who builds the tools that test. Manual testing, Playwright and API automation, and Neotest — an LLM-powered QA platform. Available from September 2026, relocating to Spain."
+  path=""
+>
+  <!-- Hero -->
+  <section class="wrap hero">
+    <h1>QA engineer who builds the&nbsp;tools that&nbsp;test.</h1>
+    <p class="lede">
+      I'm Chedy Sleimi — QA consultant at Neoalians in Tunis, computer-engineering
+      graduate (June 2026). My days are manual functional testing and Playwright and
+      API automation on the Zena project. As an AI-department intern I built
+      <strong>Neotest</strong>: an LLM-powered platform that turns a requirements
+      document into reviewed, executed, reported test cases.
+    </p>
+    <p class="cta-row">
+      <a class="btn" href={neotest}>Read the Neotest case study</a>
+      <a class="btn-quiet" href="/cv-chedy-sleimi.pdf">Download CV (PDF)</a>
+    </p>
+  </section>
+
+  <!-- Neotest teaser -->
+  <section class="section" aria-labelledby="h-neotest">
+    <div class="wrap section-grid">
+      <h2 id="h-neotest">Case study</h2>
+      <div class="flow">
+        <h3>Neotest — the QA lifecycle, automated end to end</h3>
+        <p>
+          A multi-tenant platform that ingests a requirements document (PDF or DOCX),
+          drafts ISTQB-style test cases with an LLM, waits for human approval, then
+          executes the suite in a real browser — an agentic loop driving Playwright,
+          with self-healing locators and a deterministic replay mode. Results stream
+          live over WebSockets and land in Jira via Xray Cloud.
+        </p>
+        <p><a href={neotest}>How it works, in detail →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section" aria-labelledby="h-exp">
+    <div class="wrap section-grid">
+      <h2 id="h-exp">Experience</h2>
+      <div class="jobs">
+        {
+          experience.map((job) => (
+            <article class="job">
+              <div class="job-head">
+                <h3>{job.role}</h3>
+                <p class="dates">{job.dates}</p>
+              </div>
+              <p class="org">{job.org}</p>
+              <ul>
+                {job.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+                {job.link && (
+                  <li>
+                    <a href={neotest}>Full case study →</a>
+                  </li>
+                )}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" aria-labelledby="h-projects">
+    <div class="wrap section-grid">
+      <h2 id="h-projects">Other projects</h2>
+      <div class="flow">
+        <p>
+          <strong>Pro-Connect</strong> (2024) — B2B collaboration platform with
+          talent matching and an AI chatbot for scoping project needs; JWT auth with
+          role and permission management. Spring Boot · Angular · MySQL.
+        </p>
+        <p>
+          <strong>HamHama</strong> (2024) — recipe-sharing social network with AI
+          recipe generation and nutritional calculation; microservices with a
+          documented REST API. Spring Boot · Angular · MySQL.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" aria-labelledby="h-skills">
+    <div class="wrap section-grid">
+      <h2 id="h-skills">Skills</h2>
+      <dl class="skills">
+        {
+          skills.map((row) => (
+            <div class="skill-row">
+              <dt>{row.group}</dt>
+              <dd>{row.items}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" aria-labelledby="h-edu">
+    <div class="wrap section-grid">
+      <h2 id="h-edu">Education & languages</h2>
+      <div class="flow">
+        <p>
+          <strong>Computer Engineering Degree</strong> (Diplôme d'ingénieur) — École
+          Polytechnique Internationale, Tunis, 2023–2026. Evening program, alongside
+          professional work.
+        </p>
+        <p>
+          Bachelor's in Enterprise Information Systems — ESEN Tunis (2021–2023),
+          preceded by a first bachelor's at the Faculté des Sciences de Nabeul
+          (2019–2021).
+        </p>
+        <p>
+          <strong>Languages:</strong> French — B2 (DELF) · English — B2 (IELTS) ·
+          Spanish — A1, improving.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" aria-labelledby="h-contact" id="contact">
+    <div class="wrap section-grid">
+      <h2 id="h-contact">Contact</h2>
+      <div class="flow">
+        <p>
+          I'm looking for a junior QA seat on an English-speaking team in
+          <strong>Spain</strong> — also open to Portugal and Poland. Based in Tunis,
+          available from <strong>September 2026</strong>, willing to relocate; as a
+          Tunisian citizen I'll need visa sponsorship, and I'd rather say that
+          up front.
+        </p>
+        <p class="cta-row">
+          <a class="btn" href="mailto:chedysleimi@gmail.com">chedysleimi@gmail.com</a>
+          <a class="btn-quiet" href="https://www.linkedin.com/in/chedy-sleimi"
+            >LinkedIn →</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(4rem, 10vw, 7.5rem);
+  }
+
+  .hero h1 {
+    max-width: 18ch;
+  }
+</style>

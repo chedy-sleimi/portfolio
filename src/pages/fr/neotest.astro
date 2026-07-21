@@ -1,0 +1,173 @@
+---
+import Base from '../../layouts/Base.astro';
+import Pipeline from '../../components/Pipeline.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const home = getRelativeLocaleUrl('fr', '');
+
+const steps = [
+  {
+    name: 'Exigences en entrée',
+    detail: 'Ingère le PRD au format PDF ou DOCX — le document que l’équipe a déjà.',
+  },
+  {
+    name: 'User stories',
+    detail: 'Un LLM extrait les user stories du document d’exigences.',
+  },
+  {
+    name: 'Cas de test ISTQB',
+    detail: 'Générés en classes positives, négatives, cas limites et valeurs limites.',
+  },
+  {
+    name: 'Validation humaine',
+    detail: 'Une revue avant toute exécution — le jugement reste au testeur.',
+  },
+  {
+    name: 'Exécution agentique',
+    detail:
+      'Une boucle LLM pilote Playwright par function-calling dans un vrai navigateur.',
+  },
+  {
+    name: 'Résultats en sortie',
+    detail: 'Jira via Xray Cloud, rapports PDF/Excel avec analyse des causes racines par IA.',
+  },
+];
+---
+
+<Base
+  title="Neotest — automatisation QA par LLM | Chedy Sleimi"
+  description="Étude de cas : Neotest, une plateforme multi-tenant qui transforme un document d'exigences en cas de test relus, exécutés et documentés — une boucle LLM agentique pilotant Playwright, avec sélecteurs auto-réparants et replay déterministe."
+  path="neotest"
+>
+  <article>
+    <header class="wrap intro">
+      <p class="meta">
+        Étude de cas · Projet de fin d'études (PFE) · Département IA de Neoalians ·
+        <span class="nowrap">mars – juillet 2026</span>
+      </p>
+      <h1>Neotest : le cycle de vie QA, automatisé — avec un humain dans la boucle.</h1>
+      <p class="lede">
+        Transformer un document d'exigences en cas de test exécutés et documentés
+        est un travail lent et répétitif : lire le PRD, en déduire les user stories,
+        écrire les cas positifs, négatifs, cas limites et valeurs limites, tenir
+        Jira à jour, puis tout exécuter à la main. Neotest automatise ce cycle de bout en
+        bout — en gardant une personne dans la boucle exactement là où le jugement
+        compte.
+      </p>
+    </header>
+
+    <section class="section" aria-labelledby="h-pipeline">
+      <div class="wrap section-grid">
+        <h2 id="h-pipeline">Le pipeline</h2>
+        <Pipeline label="Pipeline Neotest, des exigences aux résultats" {steps} />
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-cases">
+      <div class="wrap section-grid">
+        <h2 id="h-cases">Du document aux cas de test</h2>
+        <div class="flow">
+          <p>
+            Neotest part de là où une équipe QA part vraiment : le document
+            d'exigences. Il ingère du PDF ou du DOCX, extrait les user stories avec
+            un LLM, et génère des cas de test de type ISTQB dans les quatre classes
+            qu'un testeur écrirait à la main — positifs, négatifs, cas limites et
+            valeurs limites.
+          </p>
+          <p>
+            Rien ne s'exécute sur la seule parole du modèle. Les cas générés passent
+            par une <strong>validation humaine</strong> : le testeur relit, corrige
+            et approuve avant qu'un seul navigateur ne se lance. Le but n'est pas de
+            remplacer le jugement de conception de test — c'est d'arrêter de le
+            gaspiller à taper du texte.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-exec">
+      <div class="wrap section-grid">
+        <h2 id="h-exec">Exécution dans un vrai navigateur</h2>
+        <div class="flow">
+          <p>
+            Les cas approuvés passent par un
+            <strong>moteur d'exécution agentique</strong> : une boucle LLM pilote
+            Playwright via des outils de function-calling, et décide pas à pas
+            comment dérouler chaque test dans une vraie session de navigateur.
+            L'exécution est diffusée en direct via WebSockets — screencast, console
+            et statut de chaque étape en temps réel.
+          </p>
+          <p>
+            Une exécution agentique est exploratoire par nature ; Neotest propose
+            donc aussi un <strong>mode replay</strong> déterministe, et
+            <strong>répare automatiquement les sélecteurs cassés</strong> quand
+            l'interface testée change. Pour les équipes qui veulent des artefacts
+            simples, il exporte des scripts Playwright autonomes via codegen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-org">
+      <div class="wrap section-grid">
+        <h2 id="h-org">Pensé pour une organisation QA</h2>
+        <div class="flow">
+          <p>
+            La plateforme est <strong>multi-tenant</strong> et s’intègre aux outils que
+            les équipes QA utilisent déjà : les tests générés et les résultats
+            d'exécution sont poussés vers <strong>Jira via Xray Cloud</strong> en
+            issues Test et Test Execution. Les exécutions s'exportent en rapports
+            PDF et Excel avec analyse des causes racines par IA, et chaque exécution
+            trace son <strong>coût LLM</strong> — on sait ce que coûte une suite
+            avant de la déployer à grande échelle.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-stack">
+      <div class="wrap section-grid">
+        <h2 id="h-stack">Stack</h2>
+        <div class="flow">
+          <p>
+            Django 5 + DRF, Django Channels / Daphne, Celery, PostgreSQL, Redis,
+            Docker · Next.js 16, React 19, TypeScript, Tailwind CSS · LiteLLM
+            (indépendant du fournisseur — Claude / OpenAI / Gemini) · Playwright.
+          </p>
+          <p class="note">
+            Neotest appartient à Neoalians : cette étude de cas ne montre ni
+            captures d'écran ni code source — elle décrit, avec mes propres mots,
+            la plateforme que j'ai développée.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-next">
+      <div class="wrap section-grid">
+        <h2 id="h-next">La suite</h2>
+        <div class="flow">
+          <p>
+            Je cherche un poste de QA junior où ce mélange — tests manuels,
+            automatisation Playwright et développement de l'outillage lui-même —
+            est utile dès le premier jour.
+          </p>
+          <p class="cta-row">
+            <a class="btn" href="mailto:chedysleimi@gmail.com">Me contacter</a>
+            <a class="btn-quiet" href={home}>← Retour à l'accueil</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .intro {
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .intro h1 {
+    max-width: 26ch;
+  }
+</style>

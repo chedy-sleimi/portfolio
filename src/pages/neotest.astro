@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import Pipeline from '../components/Pipeline.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const home = getRelativeLocaleUrl('en', '');
+
+const steps = [
+  {
+    name: 'Requirements in',
+    detail: 'Ingests the PRD as PDF or DOCX — the document the team already has.',
+  },
+  {
+    name: 'User stories',
+    detail: 'An LLM extracts user stories from the requirements.',
+  },
+  {
+    name: 'ISTQB test cases',
+    detail: 'Generated across positive, negative, edge and boundary classes.',
+  },
+  {
+    name: 'Human approval',
+    detail: 'A review gate before anything runs — judgment stays with the tester.',
+  },
+  {
+    name: 'Agentic execution',
+    detail:
+      'An LLM loop drives Playwright through function-calling tools in a real browser.',
+  },
+  {
+    name: 'Results out',
+    detail: 'Jira via Xray Cloud, PDF/Excel reports with AI root-cause analysis.',
+  },
+];
+---
+
+<Base
+  title="Neotest — LLM-powered QA automation | Chedy Sleimi"
+  description="Case study: Neotest, a multi-tenant platform that turns a requirements document into reviewed, executed, reported test cases — an agentic LLM loop driving Playwright, with self-healing locators and deterministic replay."
+  path="neotest"
+>
+  <article>
+    <header class="wrap intro">
+      <p class="meta">
+        Case study · Final-year engineering project (PFE) · Neoalians AI department ·
+        <span class="nowrap">March – July 2026</span>
+      </p>
+      <h1>Neotest: the QA lifecycle, automated — with a human in the loop.</h1>
+      <p class="lede">
+        Turning a requirements document into executed, reported test cases is slow,
+        repetitive work: read the PRD, derive user stories, write positive, negative,
+        edge and boundary cases, keep Jira in sync, then run everything by hand.
+        Neotest automates that lifecycle end to end — and keeps a person in the loop
+        exactly where judgment matters.
+      </p>
+    </header>
+
+    <section class="section" aria-labelledby="h-pipeline">
+      <div class="wrap section-grid">
+        <h2 id="h-pipeline">The pipeline</h2>
+        <Pipeline label="Neotest pipeline, from requirements to results" {steps} />
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-cases">
+      <div class="wrap section-grid">
+        <h2 id="h-cases">From document to test cases</h2>
+        <div class="flow">
+          <p>
+            Neotest starts where a QA team actually starts: the requirements
+            document. It ingests PDF or DOCX, uses an LLM to extract user stories,
+            and generates ISTQB-style test cases across the four classes a tester
+            would write by hand — positive, negative, edge and boundary.
+          </p>
+          <p>
+            Nothing executes on the model's word alone. Generated cases pass through
+            a <strong>human-in-the-loop approval gate</strong>: the tester reviews,
+            edits and approves before a single browser launches. The point is not to
+            replace test design judgment — it's to stop spending it on typing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-exec">
+      <div class="wrap section-grid">
+        <h2 id="h-exec">Execution in a real browser</h2>
+        <div class="flow">
+          <p>
+            Approved cases run through an <strong>agentic execution engine</strong>:
+            an LLM loop drives Playwright via function-calling tools, deciding step
+            by step how to carry each test out in a real browser session. Execution
+            streams live over WebSockets — screencast, console output and per-step
+            status as it happens.
+          </p>
+          <p>
+            Agentic runs are exploratory by nature, so Neotest also has a
+            deterministic <strong>REPLAY mode</strong>, and it
+            <strong>self-heals broken locators</strong> when the UI under test
+            changes. For teams that want plain artifacts, it exports standalone
+            runnable Playwright scripts via codegen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-org">
+      <div class="wrap section-grid">
+        <h2 id="h-org">Built for a QA organization</h2>
+        <div class="flow">
+          <p>
+            The platform is <strong>multi-tenant</strong> and speaks the tools QA
+            teams already live in: generated tests and run results push to
+            <strong>Jira via Xray Cloud</strong> as Test and Test Execution issues.
+            Runs export as PDF and Excel reports with AI root-cause analysis of
+            failures, and every run tracks its <strong>LLM cost</strong> — you know
+            what each suite costs before you scale it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-stack">
+      <div class="wrap section-grid">
+        <h2 id="h-stack">Stack</h2>
+        <div class="flow">
+          <p>
+            Django 5 + DRF, Django Channels / Daphne, Celery, PostgreSQL, Redis,
+            Docker · Next.js 16, React 19, TypeScript, Tailwind CSS · LiteLLM
+            (provider-agnostic — Claude / OpenAI / Gemini) · Playwright.
+          </p>
+          <p class="note">
+            Neotest belongs to Neoalians, so this case study shows no product
+            screenshots or source — it describes, in my own words, the platform
+            I built.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="h-next">
+      <div class="wrap section-grid">
+        <h2 id="h-next">What's next</h2>
+        <div class="flow">
+          <p>
+            I'm looking for a junior QA role where this mix — hands-on manual
+            testing, Playwright automation, and building the tooling itself — is
+            useful from day one.
+          </p>
+          <p class="cta-row">
+            <a class="btn" href="mailto:chedysleimi@gmail.com">Get in touch</a>
+            <a class="btn-quiet" href={home}>← Back to the overview</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .intro {
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .intro h1 {
+    max-width: 24ch;
+  }
+</style>
